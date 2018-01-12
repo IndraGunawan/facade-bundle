@@ -35,10 +35,7 @@ abstract class AbstractFacade
      *
      * @return string
      */
-    public static function getFacadeAccessor()
-    {
-        throw new \RuntimeException('Facade does not implement getFacadeAccessor method.');
-    }
+    abstract public static function getFacadeAccessor();
 
     /**
      * Handle dynamic calls to the service.
