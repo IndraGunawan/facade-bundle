@@ -13,11 +13,10 @@ namespace  Indragunawan\FacadeBundle\DependencyInjection\Compiler;
 
 use Indragunawan\FacadeBundle\AbstractFacade;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use Symfony\Component\DependencyInjection\Compiler\ServiceLocatorTagPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
 use Symfony\Component\DependencyInjection\Reference;
-use Symfony\Component\DependencyInjection\ServiceLocator;
 
 /**
  * @author Indra Gunawan <hello@indra.my.id>
@@ -29,9 +28,11 @@ final class AddFacadePass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
-        $services = [];
-        foreach (array_keys($container->findTaggedServiceIds('indragunawan.facade')) as $id) {
+        $facades = [];
+        foreach ($container->findTaggedServiceIds('indragunawan.facade') as $id => $attr) {
             $class = $container->getDefinition($id)->getClass();
+            $class = null !== $class ? $class : $id;
+
             if (!is_subclass_of($class, AbstractFacade::class)) {
                 throw new InvalidArgumentException(sprintf('The service "%s" must extend AbstractFacade.', $class));
             }
@@ -42,14 +43,9 @@ final class AddFacadePass implements CompilerPassInterface
             }
 
             $ref = is_string($ref) && 0 === strpos($ref, '@') ? substr($ref, 1) : $ref;
-            $services[$id] = new Reference($ref);
+            $facades[$id] = new Reference($ref);
         }
 
-        $serviceLocator = (new Definition(ServiceLocator::class))
-            ->addArgument($services)
-            ->setPublic(true)
-            ->addTag('container.service_locator');
-
-        $container->setDefinition('indragunawan.facade.container', $serviceLocator);
+        $container->setAlias('indragunawan.facade.container', (string) ServiceLocatorTagPass::register($container, $facades));
     }
 }

@@ -29,17 +29,15 @@ class AddFacadePassTest extends TestCase
     public function testProsesFacade()
     {
         $container = new ContainerBuilder();
-        $container->addCompilerPass(new AddFacadePass());
 
         $container->register(FooService::class);
+        $container->register(Foo::class)->addTag('indragunawan.facade');
 
-        $definition = $container->register(Foo::class);
-        $definition->addTag('indragunawan.facade');
+        $addFacadePass = new AddFacadePass();
+        $addFacadePass->process($container);
 
-        $container->compile();
-
-        $this->assertTrue($container->hasDefinition('indragunawan.facade.container'));
         $this->assertInstanceOf(ServiceLocator::class, $container->get('indragunawan.facade.container'));
+        $this->assertTrue($container->get('indragunawan.facade.container')->has(Foo::class));
     }
 
     public function testProcessInvalidFacadeAccessor()
@@ -48,10 +46,11 @@ class AddFacadePassTest extends TestCase
         $this->expectExceptionMessage('Facade accessor must be string, "array" given.');
 
         $container = new ContainerBuilder();
-        $container->addCompilerPass(new AddFacadePass());
 
-        $definition = $container->register(InvalidFacadeAccessor::class);
-        $definition->addTag('indragunawan.facade');
+        $container->register(InvalidFacadeAccessor::class)->addTag('indragunawan.facade');
+
+        $addFacadePass = new AddFacadePass();
+        $addFacadePass->process($container);
 
         $container->compile();
     }
@@ -62,10 +61,11 @@ class AddFacadePassTest extends TestCase
         $this->expectExceptionMessage('The service "Indragunawan\FacadeBundle\Tests\Fixtures\Facades\InvalidFacade" must extend AbstractFacade.');
 
         $container = new ContainerBuilder();
-        $container->addCompilerPass(new AddFacadePass());
 
-        $definition = $container->register(InvalidFacade::class);
-        $definition->addTag('indragunawan.facade');
+        $container->register(InvalidFacade::class)->addTag('indragunawan.facade');
+
+        $addFacadePass = new AddFacadePass();
+        $addFacadePass->process($container);
 
         $container->compile();
     }

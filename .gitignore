@@ -5,3 +5,6 @@ composer.lock
 composer.phar
 .php_cs.cache
 /build
+
+Tests/Fixtures/cache/
+Tests/Fixtures/logs/
