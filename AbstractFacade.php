@@ -20,16 +20,36 @@ abstract class AbstractFacade
 {
     protected static $container;
 
+    /**
+     * Facade service container.
+     *
+     * @param ContainerInterface $container
+     */
     public static function setFacadeContainer(ContainerInterface $container)
     {
         static::$container = $container;
     }
 
+    /**
+     * Get the registered id of the service.
+     *
+     * @return string
+     */
     public static function getFacadeAccessor()
     {
         throw new \RuntimeException('Facade does not implement getFacadeAccessor method.');
     }
 
+    /**
+     * Handle dynamic calls to the service.
+     *
+     * @param string $method
+     * @param string $arguments
+     *
+     * @return mixed
+     *
+     * @throws \RuntimeException
+     */
     public static function __callStatic($method, $arguments)
     {
         $class = get_called_class();
