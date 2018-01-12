@@ -36,6 +36,8 @@ class AddFacadePassTest extends TestCase
         $addFacadePass = new AddFacadePass();
         $addFacadePass->process($container);
 
+        $container->compile();
+
         $this->assertInstanceOf(ServiceLocator::class, $container->get('indragunawan.facade.container'));
         $this->assertTrue($container->get('indragunawan.facade.container')->has(Foo::class));
     }

@@ -35,7 +35,7 @@ class IndragunawanFacadeBundleTest extends TestCase
         $kernel = $this
             ->getMockBuilder(Kernel::class)
             ->setMethods(['registerBundles'])
-            ->setConstructorArgs(['test', true])
+            ->setConstructorArgs(['test', false])
             ->getMockForAbstractClass()
         ;
         $kernel->method('registerBundles')
@@ -43,7 +43,7 @@ class IndragunawanFacadeBundleTest extends TestCase
         ;
         $p = new \ReflectionProperty($kernel, 'rootDir');
         $p->setAccessible(true);
-        $p->setValue($kernel, __DIR__.'/Fixtures');
+        $p->setValue($kernel, sys_get_temp_dir());
 
         return $kernel;
     }

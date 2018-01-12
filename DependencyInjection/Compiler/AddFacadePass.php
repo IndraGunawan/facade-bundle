@@ -12,6 +12,7 @@
 namespace  Indragunawan\FacadeBundle\DependencyInjection\Compiler;
 
 use Indragunawan\FacadeBundle\AbstractFacade;
+use Symfony\Component\DependencyInjection\Alias;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\Compiler\ServiceLocatorTagPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -46,6 +47,6 @@ final class AddFacadePass implements CompilerPassInterface
             $facades[$id] = new Reference($ref);
         }
 
-        $container->setAlias('indragunawan.facade.container', (string) ServiceLocatorTagPass::register($container, $facades));
+        $container->setAlias('indragunawan.facade.container', new Alias(ServiceLocatorTagPass::register($container, $facades), true));
     }
 }
