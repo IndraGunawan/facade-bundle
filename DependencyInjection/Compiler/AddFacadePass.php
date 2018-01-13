@@ -38,7 +38,10 @@ final class AddFacadePass implements CompilerPassInterface
                 throw new InvalidArgumentException(sprintf('The service "%s" must extend AbstractFacade.', $class));
             }
 
-            $ref = $class::getFacadeAccessor();
+            $r = new \ReflectionMethod($class, 'getFacadeAccessor');
+            $r->setAccessible(true);
+            $ref = $r->invoke(null);
+
             if (!is_string($ref)) {
                 throw new InvalidArgumentException(sprintf('Facade accessor must be string, "%s" given.', is_object($ref) ? get_class($ref) : gettype($ref)));
             }

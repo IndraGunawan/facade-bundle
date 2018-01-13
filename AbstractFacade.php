@@ -35,13 +35,13 @@ abstract class AbstractFacade
      *
      * @return string
      */
-    abstract public static function getFacadeAccessor();
+    abstract protected static function getFacadeAccessor();
 
     /**
      * Handle dynamic calls to the service.
      *
      * @param string $method
-     * @param string $arguments
+     * @param array $arguments
      *
      * @return mixed
      *
