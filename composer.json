@@ -1,5 +1,6 @@
 {
     "name": "indragunawan/facade-bundle",
+    "description": "Support Facades for Symfony service.",
     "type": "symfony-bundle",
     "license": "MIT",
     "authors": [
