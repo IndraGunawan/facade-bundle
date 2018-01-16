@@ -32,8 +32,8 @@ If you install without using Symfony Flex, first add the bundle by using compose
 
 ### Creating Facade
 
-To create a facade create a class that extends base `Indragunawan\FacadeBundle\AbstractFacade` class and implement the `getFacadeAccessor` method that returns the `service id`, support *private* and *public* service.
 
+To create a facade create a class that extends base `Indragunawan\FacadeBundle\AbstractFacade` class and implement the `getFacadeAccessor` method that returns the `service id`, support **private** and **public** service.
 ```php
 <?php
 
