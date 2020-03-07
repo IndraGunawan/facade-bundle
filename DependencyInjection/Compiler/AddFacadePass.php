@@ -42,11 +42,11 @@ final class AddFacadePass implements CompilerPassInterface
             $r->setAccessible(true);
             $ref = $r->invoke(null);
 
-            if (!is_string($ref)) {
-                throw new InvalidArgumentException(sprintf('Facade accessor must be string, "%s" given.', is_object($ref) ? get_class($ref) : gettype($ref)));
+            if (!\is_string($ref)) {
+                throw new InvalidArgumentException(sprintf('Facade accessor must be string, "%s" given.', \is_object($ref) ? \get_class($ref) : \gettype($ref)));
             }
 
-            $ref = is_string($ref) && 0 === strpos($ref, '@') ? substr($ref, 1) : $ref;
+            $ref = \is_string($ref) && 0 === strpos($ref, '@') ? substr($ref, 1) : $ref;
             $facades[$id] = new Reference($ref);
         }
 

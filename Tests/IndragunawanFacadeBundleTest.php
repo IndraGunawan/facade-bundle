@@ -11,40 +11,19 @@
 
 namespace Indragunawan\FacadeBundle\Tests;
 
-use Indragunawan\FacadeBundle\IndragunawanFacadeBundle;
-use PHPUnit\Framework\TestCase;
+use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\DependencyInjection\ServiceLocator;
-use Symfony\Component\HttpKernel\Kernel;
 
 /**
  * @author Indra Gunawan <hello@indra.my.id>
  */
-class IndragunawanFacadeBundleTest extends TestCase
+class IndragunawanFacadeBundleTest extends KernelTestCase
 {
     public function testBundle()
     {
-        $kernel = $this->getKernel();
-        $kernel->boot();
+        $kernel = $this->bootKernel(['environment' => 'test', 'debug' => true]);
 
         $this->assertTrue($kernel->getContainer()->has('indragunawan.facade.container'));
         $this->assertInstanceOf(ServiceLocator::class, $kernel->getContainer()->get('indragunawan.facade.container'));
-    }
-
-    protected function getKernel()
-    {
-        $kernel = $this
-            ->getMockBuilder(Kernel::class)
-            ->setMethods(['registerBundles'])
-            ->setConstructorArgs(['test', false])
-            ->getMockForAbstractClass()
-        ;
-        $kernel->method('registerBundles')
-            ->will($this->returnValue([new IndragunawanFacadeBundle()]))
-        ;
-        $p = new \ReflectionProperty($kernel, 'rootDir');
-        $p->setAccessible(true);
-        $p->setValue($kernel, sys_get_temp_dir());
-
-        return $kernel;
     }
 }
