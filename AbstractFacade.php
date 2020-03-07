@@ -22,8 +22,6 @@ abstract class AbstractFacade
 
     /**
      * Facade service container.
-     *
-     * @param ContainerInterface $container
      */
     public static function setFacadeContainer(ContainerInterface $container)
     {
@@ -41,7 +39,7 @@ abstract class AbstractFacade
      * Handle dynamic calls to the service.
      *
      * @param string $method
-     * @param array $arguments
+     * @param array  $arguments
      *
      * @return mixed
      *
@@ -49,7 +47,7 @@ abstract class AbstractFacade
      */
     public static function __callStatic($method, $arguments)
     {
-        $class = get_called_class();
+        $class = \get_called_class();
 
         if (!static::$container->has($class)) {
             throw new \RuntimeException(sprintf('"%s" facade has not been register.', $class));

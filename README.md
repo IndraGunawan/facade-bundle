@@ -7,17 +7,17 @@
 [![Source](https://img.shields.io/badge/source-IndraGunawan%2Ffacade--bundle-blue.svg)](https://github.com/IndraGunawan/facade-bundle)
 [![Packagist](https://img.shields.io/badge/packagist-indragunawan%2Ffacade--bundle-blue.svg)](https://packagist.org/packages/indragunawan/facade-bundle)
 
-
 Support Facades for Symfony service.
 
 thanks to:
+
 - [Service Locator](https://symfony.com/blog/new-in-symfony-3-3-service-locators) - for making all the referenced facade service lazy-loaded.
 - [Service Autoconfiguration](https://symfony.com/blog/new-in-symfony-3-3-service-autoconfiguration) - for making all classes that extend `Indragunawan\FacadeBundle\AbstractFacade` class automatically tagged as facade.
 
 ## Documentation
 
-* [Installation](#installation)
-* [Creating Facade](#creating-facade)
+- [Installation](#installation)
+- [Creating Facade](#creating-facade)
 
 ### Installation
 
@@ -32,8 +32,8 @@ If you install without using Symfony Flex, first add the bundle by using compose
 
 ### Creating Facade
 
-
 To create a facade create a class that extends base `Indragunawan\FacadeBundle\AbstractFacade` class and implement the `getFacadeAccessor` method that returns the `service id`, support **private** and **public** service.
+
 ```php
 <?php
 
@@ -52,7 +52,6 @@ class Foo extends AbstractFacade
 
 Now the facade now ready. Simply import the facade namespace. When you call any static method on the `Foo` facade, then it will resolve the service that you define in `getFacadeAccessor` method and call the requested method from the service.
 
-License
--------
+## License
 
 This bundle is under the MIT license. See the complete [license](LICENSE)

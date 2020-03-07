@@ -6,6 +6,11 @@
     bootstrap="./vendor/autoload.php"
     colors="true">
 
+    <php>
+        <ini name="error_reporting" value="-1" />
+        <server name="KERNEL_CLASS" value="\Indragunawan\FacadeBundle\Tests\Fixtures\Kernel" />
+    </php>
+
     <testsuites>
         <testsuite name="FacadeBundle test suite">
             <directory suffix="Test.php">./Tests</directory>

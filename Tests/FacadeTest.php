@@ -28,17 +28,17 @@ class FacadeTest extends TestCase
         $container
             ->expects($this->exactly(2))
             ->method('has')
-            ->will($this->returnValueMap([
+            ->willReturnMap([
                 [Foo::class, true],
-            ]))
+            ])
         ;
 
         $container
             ->expects($this->exactly(2))
             ->method('get')
-            ->will($this->returnValueMap([
+            ->willReturnMap([
                 [Foo::class, new FooService()],
-            ]))
+            ])
         ;
 
         AbstractFacade::setFacadeContainer($container);
@@ -57,7 +57,7 @@ class FacadeTest extends TestCase
         $container
             ->expects($this->once())
             ->method('has')
-            ->will($this->returnValueMap([]))
+            ->willReturnMap([])
         ;
 
         AbstractFacade::setFacadeContainer($container);

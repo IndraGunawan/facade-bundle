@@ -5,3 +5,5 @@ composer.lock
 composer.phar
 .php_cs.cache
 /build
+.phpunit.result.cache
+/var
